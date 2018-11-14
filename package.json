@@ -1,0 +1,114 @@
+{
+  "_args": [
+    [
+      {
+        "raw": "@robinsage/rb-treeview@^0.2.1",
+        "scope": "@robinsage",
+        "escapedName": "@robinsage%2frb-treeview",
+        "name": "@robinsage/rb-treeview",
+        "rawSpec": "^0.2.1",
+        "spec": ">=0.2.1 <0.3.0",
+        "type": "range"
+      },
+      "/vagrant"
+    ]
+  ],
+  "_from": "@robinsage/rb-treeview@>=0.2.1 <0.3.0",
+  "_id": "@robinsage/rb-treeview@0.2.1",
+  "_inCache": true,
+  "_location": "/@robinsage/rb-treeview",
+  "_nodeVersion": "6.9.1",
+  "_npmOperationalInternal": {
+    "host": "packages-18-east.internal.npmjs.com",
+    "tmp": "tmp/rb-treeview-0.2.1.tgz_1490979654623_0.10416767979040742"
+  },
+  "_npmUser": {
+    "name": "robinsage",
+    "email": "dchilds@robinsage.com"
+  },
+  "_npmVersion": "4.1.1",
+  "_phantomChildren": {
+    "accepts": "1.3.5",
+    "array-flatten": "1.1.1",
+    "bytes": "3.0.0",
+    "content-disposition": "0.5.2",
+    "content-type": "1.0.4",
+    "cookie": "0.3.1",
+    "cookie-signature": "1.0.6",
+    "debug": "2.6.9",
+    "depd": "1.1.2",
+    "encodeurl": "1.0.2",
+    "escape-html": "1.0.3",
+    "etag": "1.8.1",
+    "finalhandler": "1.1.0",
+    "fresh": "0.5.2",
+    "http-errors": "1.6.2",
+    "iconv-lite": "0.4.19",
+    "merge-descriptors": "1.0.1",
+    "methods": "1.1.2",
+    "on-finished": "2.3.0",
+    "parseurl": "1.3.2",
+    "path-to-regexp": "0.1.7",
+    "proxy-addr": "2.0.3",
+    "qs": "6.5.1",
+    "range-parser": "1.2.0",
+    "raw-body": "2.3.2",
+    "safe-buffer": "5.1.1",
+    "send": "0.16.1",
+    "serve-static": "1.13.1",
+    "setprototypeof": "1.1.0",
+    "statuses": "1.3.1",
+    "type-is": "1.6.16",
+    "utils-merge": "1.0.1",
+    "vary": "1.1.2"
+  },
+  "_requested": {
+    "raw": "@robinsage/rb-treeview@^0.2.1",
+    "scope": "@robinsage",
+    "escapedName": "@robinsage%2frb-treeview",
+    "name": "@robinsage/rb-treeview",
+    "rawSpec": "^0.2.1",
+    "spec": ">=0.2.1 <0.3.0",
+    "type": "range"
+  },
+  "_requiredBy": [
+    "/"
+  ],
+  "_resolved": "https://registry.npmjs.org/@robinsage/rb-treeview/-/rb-treeview-0.2.1.tgz",
+  "_shasum": "8f1c5ca9b7127296a5981558459eec4bd6adb422",
+  "_shrinkwrap": null,
+  "_spec": "@robinsage/rb-treeview@^0.2.1",
+  "_where": "/vagrant",
+  "author": {
+    "name": "Robinsage Business Services",
+    "email": "info@robinsage.com"
+  },
+  "dependencies": {
+    "express": "^4.14.0"
+  },
+  "description": "Tree view for robinbase",
+  "devDependencies": {},
+  "directories": {},
+  "dist": {
+    "shasum": "8f1c5ca9b7127296a5981558459eec4bd6adb422",
+    "tarball": "https://registry.npmjs.org/@robinsage/rb-treeview/-/rb-treeview-0.2.1.tgz"
+  },
+  "license": "UNLICENSED",
+  "main": "index.js",
+  "maintainers": [
+    {
+      "name": "robinsage",
+      "email": "dchilds@robinsage.com"
+    }
+  ],
+  "name": "@robinsage/rb-treeview",
+  "optionalDependencies": {},
+  "publishConfig": {
+    "access": "restricted"
+  },
+  "readme": "ERROR: No README data found!",
+  "scripts": {
+    "test": "mocha test/"
+  },
+  "version": "0.2.1"
+}

@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+
+    <title>{{#data:key/"project.title"}}</title>
+
+    {{#Include:template/"templates.admin.main-css"}}
+
+</head>
+<body>
+
+{{#Include:template/"templates.admin.sidebar"}}
+{{#Include:template/"templates.admin.header"}}
+
+<div class="contentArea">
+    <div class="treeview well" >
+        <div class="wellTitle">Projects</div>
+    </div>
+</div>
+
+<script>
+    var tree = JSON.parse('{{#data:key/tree/withSlashesJSON/1}}');
+    console.log(tree);
+
+    var baseNode = document.getElementsByClassName('treeview')[0];
+
+    function createTreeNode(definition, parentElement) {
+        var newNode = document.createElement('li');
+
+        var icon = document.createElement(definition.childrenLink ? 'a' : 'i');
+        var link = document.createElement('a');
+        var children = document.createElement('ul');
+
+        var closedClassList = definition.icon + ' treeview-icon';
+        var openClassList = closedClassList;
+
+        if (definition.openIcon) {
+            openClassList = definition.openIcon + ' treeview-icon';
+        }
+        icon.classList = closedClassList;
+        newNode.appendChild(icon);
+
+        var lastClick = 0;
+        var clickTimeout = null;
+        function toggleDirectory(e) {
+            e.preventDefault();
+            if (clickTimeout) {
+                clearTimeout(clickTimeout);
+            }
+
+            var thisClick = Date.now();
+
+            if (!definition.childrenLink || thisClick - lastClick < 160) {
+                // double click, so go
+                window.location.href = e.target.href;
+//                console.log('DOUBLE CLICK: ', thisClick - lastClick);
+                return;
+            }
+
+            lastClick = thisClick;
+
+            if (definition.childrenLink) {
+                clickTimeout = setTimeout(function() {
+                    if (newNode.classList.contains('open')) {
+                        icon.classList = closedClassList;
+                    } else {
+                        icon.classList = openClassList;
+                        if (!definition.loaded) {
+                            $.getJSON(definition.childrenLink, {}, function(data) {
+//                            console.log('data', data);
+                                children.innerHTML = '';
+                                data.forEach(function(item) {
+                                    createTreeNode(item, children);
+                                });
+                                definition.children = data;
+                                definition.loaded = true;
+                            }).fail(function(err) {
+                                console.log('call errored', err);
+                            });
+                        }
+                    }
+
+                    newNode.classList.toggle('open');
+                }, 200);
+
+            }
+
+
+        }
+
+        if (definition.childrenLink) {
+            icon.addEventListener('click', toggleDirectory);
+        }
+
+
+        link.href = definition.link;
+        link.innerText = definition.label;
+        link.classList = 'treeview-label';
+        newNode.appendChild(link);
+
+        link.addEventListener('click', toggleDirectory);
+
+        link.addEventListener('doubleclick', function(e) {
+            e.preventDefault();
+            console.log('doubleclick: ', e.target.href);
+        })
+
+        children.classList = 'treeview-list level-' + definition.level;
+        newNode.appendChild(children);
+
+        if (typeof definition.appendClass != 'undefined')
+        {
+            $(newNode).addClass(definition.appendClass);
+        }
+
+        parentElement.appendChild(newNode);
+    }
+
+    var topNode = document.createElement('ul');
+    topNode.classList = 'treeview-list level-0';
+
+    tree.forEach(function(item){
+        createTreeNode(item, topNode);
+    });
+
+    baseNode.appendChild(topNode);
+
+</script>
+
+<style>
+
+    .treeview {
+        padding-top: 44px;
+        position:relative;
+    }
+
+    .treeview ul {
+        list-style: none;
+        padding: 0px;
+        overflow: hidden;
+        /*border-left: 25px solid #efefef;*/
+        margin: 0 0 4px 0;
+        margin-left:25px;
+        /*border-left: 1px solid {{#data:key/primaryColor}};*/
+    }
+
+    .treeview li
+    {
+        border-left: 2px solid #ccc;
+    }
+
+    .treeview li > a
+    {
+        padding-left:4px;
+        padding-right:4px;
+    }
+
+    .treeview li > a:hover
+    {
+        background:#efefef;
+    }
+
+    .treeview li:last-child
+    {
+        border-left: none;
+        margin-left:1px;
+        margin-top: -2px;
+        margin-bottom: 10px;
+    }
+
+    .treeview li::before {
+        color:#ccc;
+        margin-left:-7px;
+        content: "\2500\2500 ";
+    }
+
+    .treeview li:last-child::before {
+        content: "\2514\2500 ";
+    }
+
+    .treeview ul.level-0 {
+        border-left-width: 0;
+    }
+
+    .treeview ul.level-0 > li:first-child
+    {
+        padding-top: 30px;
+    }
+
+    .treeview a.treeview-label {
+        color: {{#data:key/primaryColor}};
+        text-decoration: none;
+        margin-left: 6px;
+    }
+
+
+    .treeview-append > a
+    {
+        background: #aaa;
+        color: #fff !important;
+        padding-left: 10px !important;
+        padding-right: 10px !important;
+        border-radius: 10px;
+        margin-left: 0px !important;
+        font-size: 12px;
+    }
+
+    .treeview-append > a:hover
+    {
+        background: {{#data:key/primaryColor}} !important;
+    }
+
+    .treeview-append > i
+    {
+        display:none;
+    }
+
+
+    .treeview a.treeview-icon {
+        /*color: {{#data:key/primaryColor}};*/
+        text-decoration: none;
+        cursor: pointer;
+        margin-left: 8px;
+    }
+
+    .treeview i.treeview-icon {
+
+        margin-left: 8px;
+    }
+
+    .treeview-list > li > ul {
+        height: 0;
+        overflow: hidden;
+        margin-bottom: 0;
+    }
+
+    .treeview-list > li.open > ul {
+        height: auto;
+       /*margin-bottom: 4px;*/
+    }
+
+    @media (max-width: 800px)
+    {
+        .treeview li
+        {
+            border-left: 1px solid #ccc;
+        }
+    }
+
+
+</style>
+
+</body>
+</html>
